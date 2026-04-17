@@ -27,16 +27,14 @@ document.getElementById("list").innerHTML =
   orgData.map(o => `
     <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
 
-      <div>
-        <h3>${o.name}</h3>
+   <div>
+  <h3>${o.name}</h3>
 
-        <!-- CITY LINK (NEW FEATURE YOU WANTED) -->
-        <a href="country.html?country=${o.country}"
-           style="color:#4da6ff; text-decoration:none;">
-          ${o.city}, ${o.country}
-        </a>
-
-      </div>
+  <a href="org.html?id=${o.id}"
+     style="color:#4da6ff; text-decoration:none;">
+    ${o.city}, ${o.country}
+  </a>
+</div>
 
       <button onclick="window.location.href='org.html?id=${o.id}'">
         Donate Now
