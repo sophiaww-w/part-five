@@ -59,3 +59,12 @@ button {
   font-size: 12px;
   white-space: nowrap;
 }
+
+/* allow markers to receive mouse events */
+.globe-container {
+  pointer-events: auto;
+}
+
+.globe-container canvas {
+  pointer-events: auto;
+}
