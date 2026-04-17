@@ -3,6 +3,18 @@ const globe = Globe()
   .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
   .backgroundColor('#070a12');
 
+// create tooltip once
+const tooltip = document.createElement("div");
+tooltip.style.position = "absolute";
+tooltip.style.background = "white";
+tooltip.style.color = "black";
+tooltip.style.padding = "8px 10px";
+tooltip.style.borderRadius = "8px";
+tooltip.style.fontSize = "12px";
+tooltip.style.pointerEvents = "none";
+tooltip.style.display = "none";
+document.body.appendChild(tooltip);
+
 // DATA
 globe
   .pointsData(orgData)
@@ -12,29 +24,30 @@ globe
   .pointRadius(0.7)
   .pointAltitude(0.02)
 
-// CLICK
+// CLICK → org page
   .onPointClick(d => {
     window.location.href = `org.html?id=${d.id}`;
   })
 
-// HOVER (THIS IS THE FIX)
+// HOVER (WORKING VERSION)
   .onPointHover(d => {
     if (d) {
-      globe.tooltipContent(`
-        <div style="
-          background:white;
-          color:black;
-          padding:10px;
-          border-radius:10px;
-          font-size:12px;
-          max-width:180px;
-        ">
-          <b>${d.name}</b><br>
-          ${d.city}, ${d.country}<br>
-          $${d.raised} / $${d.goal}
-        </div>
-      `);
+      const percent = Math.round((d.raised / d.goal) * 100);
+
+      tooltip.innerHTML = `
+        <b>${d.name}</b><br>
+        ${d.city}, ${d.country}<br>
+        $${d.raised} / $${d.goal}
+      `;
+
+      tooltip.style.display = "block";
     } else {
-      globe.tooltipContent(null);
+      tooltip.style.display = "none";
     }
   });
+
+// move tooltip with mouse
+document.addEventListener("mousemove", (e) => {
+  tooltip.style.left = (e.clientX + 10) + "px";
+  tooltip.style.top = (e.clientY + 10) + "px";
+});
