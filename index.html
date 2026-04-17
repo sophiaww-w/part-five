@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Global Fundraising Network</title>
+  <script src="https://unpkg.com/globe.gl"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #0a0f2c, #000);
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 50px;
+      margin-top: 20px;
+      letter-spacing: 2px;
+    }
+
+    #globeViz {
+      width: 100%;
+      height: 70vh;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin: 20px;
+      background: red;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #ff3b3b;
+    }
+
+    /* MARKERS */
+    .marker {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 2;
+    }
+
+    .pulse {
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 0, 0, 0.4);
+      border-radius: 50%;
+      position: absolute;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* POPUP PANEL */
+    #infoPanel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      max-width: 900px;
+      background: rgba(10, 10, 30, 0.95);
+      border-radius: 20px;
+      padding: 20px;
+      display: none;
+      opacity: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    }
+
+    .panel-content {
+      display: flex;
+      gap: 20px;
+    }
+
+    .images {
+      width: 40%;
+    }
+
+    .img-box {
+      background: #111;
+      border: 2px dashed #444;
+      height: 120px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+    }
+
+    .details {
+      width: 60%;
+      text-align: left;
+    }
+
+    .title {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .location {
+      color: #aaa;
+      margin-bottom: 15px;
+    }
+
+    .description-box {
+      background: #111;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      min-height: 80px;
+    }
+
+    .goal-box {
+      background: #111;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .close-btn {
+      background: gray;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>GLOBAL FUNDRAISING NETWORK</h1>
+
+<div id="globeViz"></div>
+
+<button onclick="window.location.href='all.html'">
+  View All Organizations
+</button>
+
+<!-- POPUP -->
+<div id="infoPanel">
+  <div class="panel-content">
+
+    <div class="images">
+      <div class="img-box">Image</div>
+      <div class="img-box">Image</div>
+      <div class="img-box">Image</div>
+    </div>
+
+    <div class="details">
+      <div class="title" id="orgName"></div>
+      <div class="location" id="orgLocation"></div>
+
+      <div class="description-box" id="orgDesc"></div>
+
+      <div class="goal-box">Goal: <span id="orgGoal"></span></div>
+      <div class="goal-box">Raised: <span id="orgRaised"></span></div>
+
+      <button id="goPageBtn">Go to Page</button>
+      <button class="close-btn" onclick="closePanel()">Close</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const locations = [
+  {
+    lat: 40.7128,
+    lng: -74.0060,
+    name: "NYC Organization",
+    location: "New York, USA",
+    desc: "Providing food, water, and support.",
+    goal: "$10,000",
+    raised: "$2,500",
+    page: "nyc.html"
+  }
+];
+
+const globe = Globe()
+(document.getElementById('globeViz'))
+.globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+.htmlElementsData(locations)
+.htmlLat(d => d.lat)
+.htmlLng(d => d.lng)
+.htmlElement(d => {
+  const el = document.createElement('div');
+
+  el.innerHTML = `
+    <div class="marker">
+      <div class="pulse"></div>
+      <div class="dot"></div>
+    </div>
+  `;
+
+  el.onclick = () => showPanel(d);
+  return el;
+});
+
+function showPanel(data) {
+  const panel = document.getElementById("infoPanel");
+
+  document.getElementById("orgName").innerText = data.name;
+  document.getElementById("orgLocation").innerText = data.location;
+  document.getElementById("orgDesc").innerText = data.desc;
+  document.getElementById("orgGoal").innerText = data.goal;
+  document.getElementById("orgRaised").innerText = data.raised;
+
+  document.getElementById("goPageBtn").onclick = () => {
+    window.location.href = data.page;
+  };
+
+  panel.style.display = "block";
+  setTimeout(() => panel.style.opacity = "1", 10);
+}
+
+function closePanel() {
+  const panel = document.getElementById("infoPanel");
+  panel.style.opacity = "0";
+
+  setTimeout(() => {
+    panel.style.display = "none";
+  }, 300);
+}
+</script>
+
+</body>
+</html>
