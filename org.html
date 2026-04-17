@@ -1,66 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Organization</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<div class="nav">
-  <div><b>Fundraising Organization</b></div>
-  <div>
-    <a href="all.html">View All</a>
-    <a href="index.html">Home</a>
-  </div>
-</div>
-
-<div id="content"></div>
-
-<script src="data.js"></script>
-
-<script>
 const id = new URLSearchParams(window.location.search).get("id");
 const org = orgData.find(o => o.id === id);
 
-if (!org) {
-  document.getElementById("content").innerHTML =
-    "<h2>Organization not found</h2>";
-} else {
+document.getElementById("content").innerHTML = `
+  <div class="card">
 
-  const percent = Math.round((org.raised / org.goal) * 100);
+    <h1>${org.name}</h1>
+    <h3>${org.city}, ${org.country}</h3>
 
-  document.getElementById("content").innerHTML = `
-    <div class="card">
+    <p>${org.description}</p>
 
-      <h1>${org.name}</h1>
+    <h3>Goal: $${org.goal}</h3>
+    <h3>Raised: $${org.raised}</h3>
 
-      <h3 style="color:#cfe8ff;">
-        ${org.city}, ${org.country}
-      </h3>
+    <button onclick="window.location.href='${org.stripe}'">
+      Donate Now
+    </button>
 
-      <p>${org.description}</p>
+    <button onclick="history.back()">Back</button>
 
-      <h3>Goal: $${org.goal}</h3>
-      <h3>Raised: $${org.raised}</h3>
-
-      <div class="bar">
-        <div class="fill" style="width:${percent}%"></div>
-      </div>
-
-      <p>${percent}% funded</p>
-
-      <!-- STRIPE DONATION -->
-      <button onclick="window.location.href='${org.stripe}'">
-        Donate Now
-      </button>
-
-      <button onclick="history.back()">Back</button>
-
-    </div>
-  `;
-}
-</script>
-
-</body>
-</html>
+  </div>
+`;
