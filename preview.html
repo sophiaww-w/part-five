@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Organizations</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #0a0f2c, #000);
+      color: white;
+      font-family: Arial;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 45px;
+      margin-top: 20px;
+    }
+
+    .list {
+      width: 60%;
+      margin: auto;
+      margin-top: 30px;
+    }
+
+    .item {
+      background: #111;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .item:hover {
+      background: #222;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin: 20px;
+      background: red;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .back {
+      background: gray;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>ALL ORGANIZATIONS</h1>
+
+<div class="list">
+
+  <div class="item" onclick="window.location.href='nyc.html'">
+    NYC Organization — New York, USA
+  </div>
+
+  <!-- ADD MORE LIKE THIS -->
+  <!--
+  <div class="item" onclick="window.location.href='la.html'">
+    LA Organization — Los Angeles, USA
+  </div>
+  -->
+
+</div>
+
+<button class="back" onclick="window.location.href='index.html'">
+  Back to Globe
+</button>
+
+</body>
+</html>
