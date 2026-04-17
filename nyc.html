@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NYC Organization</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #0a0f2c, #000);
+      color: white;
+      font-family: Arial;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 45px;
+      margin-top: 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .images {
+      width: 30%;
+    }
+
+    .img-box {
+      background: #111;
+      border: 2px dashed #444;
+      height: 120px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+    }
+
+    .details {
+      width: 40%;
+      text-align: left;
+    }
+
+    .box {
+      background: #111;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin: 10px;
+      background: red;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .back {
+      background: gray;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>NYC Organization</h1>
+<h3>New York, USA</h3>
+
+<div class="container">
+
+  <div class="images">
+    <div class="img-box">Image</div>
+    <div class="img-box">Image</div>
+    <div class="img-box">Image</div>
+  </div>
+
+  <div class="details">
+    <div class="box">
+      Providing food, water, and support to families in need.
+    </div>
+
+    <div class="box">Goal: $10,000</div>
+    <div class="box">Raised: $2,500</div>
+
+    <button onclick="window.location.href='index.html'" class="back">
+      Back
+    </button>
+
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+      <input type="hidden" name="item_name" value="Donate to NYC Organization">
+      <input type="hidden" name="currency_code" value="USD">
+      <button type="submit">Donate Now</button>
+    </form>
+  </div>
+
+</div>
+
+</body>
+</html>
