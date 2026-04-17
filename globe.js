@@ -9,17 +9,30 @@ globe
   .pointsData(orgData)
   .pointLat(d => d.lat)
   .pointLng(d => d.lng)
-  .pointColor(() => "#ff3b3b")
-  .pointRadius(0.7)
-  .pointAltitude(0.02)
+  .pointColor(() => "rgba(255, 60, 60, 0.9)")
+  .pointAltitude(0.02);
 
-// CLICK → STRIPE (DIRECT DONATION)
-  .onPointClick(d => {
-    window.location.href = d.stripe;
-  });
+// ─────────────────────────────
+// PULSE + GLOW EFFECT
+// ─────────────────────────────
 
-// OPTIONAL HOVER (simple, safe)
-globe.onPointHover(d => {
-  if (!d) return;
-  console.log(d.name);
-});
+let t = 0;
+
+function animate() {
+  t += 0.03;
+
+  globe
+    .pointRadius(d => {
+      // pulsing size
+      return 0.6 + Math.sin(t) * 0.15;
+    })
+    .pointColor(d => {
+      // glowing red (pulsing brightness)
+      const pulse = 0.5 + Math.sin(t) * 0.5;
+      return `rgba(255, 60, 60, ${0.5 + pulse * 0.5})`;
+    });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
