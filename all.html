@@ -7,7 +7,6 @@
 
 <body>
 
-<!-- NAVBAR -->
 <div class="nav">
   <div><b>Fundraising Organization</b></div>
   <div>
@@ -16,7 +15,7 @@
   </div>
 </div>
 
-<h1 style="text-align:center;">All Organizations</h1>
+<h1 style="text-align:center;">All Locations</h1>
 
 <div id="list"></div>
 
@@ -24,32 +23,20 @@
 
 <script>
 document.getElementById("list").innerHTML =
-  orgData.map(o => {
-
-    const percent = Math.round((o.raised / o.goal) * 100);
-
-    return `
-      <div class="card">
-
-        <h2>${o.name}</h2>
-
+  orgData.map(o => `
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+      
+      <div>
+        <h3>${o.name}</h3>
         <p>${o.city}, ${o.country}</p>
-
-        <p>${o.description}</p>
-
-        <p><b>${percent}% funded</b></p>
-
-        <div class="bar">
-          <div class="fill" style="width:${percent}%"></div>
-        </div>
-
-        <button onclick="location.href='org.html?id=${o.id}'">
-          View Organization
-        </button>
-
       </div>
-    `;
-  }).join("");
+
+      <button onclick="window.location.href='${o.stripe}'">
+        Donate Now
+      </button>
+
+    </div>
+  `).join("");
 </script>
 
 </body>
