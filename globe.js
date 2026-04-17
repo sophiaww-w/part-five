@@ -19,6 +19,7 @@ globe
     dot.style.width = "10px";
     dot.style.height = "10px";
     dot.style.background = "#ff4d4d";
+    dot.style.boxShadow = "0 0 8px #ff4d4d, 0 0 15px #ff4d4d";
     dot.style.borderRadius = "50%";
 
     // PULSE
