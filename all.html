@@ -22,23 +22,24 @@
 <script src="data.js"></script>
 
 <script>
-// ORGANIZATION LIST (MAIN CARDS)
 document.getElementById("list").innerHTML =
   orgData.map(o => `
     <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
 
-   <div>
-  <h3>${o.name}</h3>
+      <div>
+        <h3>${o.name}</h3>
 
-  <a href="org.html?id=${o.id}"
-     style="color:#4da6ff; text-decoration:none;">
-    ${o.city}, ${o.country}
-  </a>
-</div>
+        <!-- STRIPE LINK -->
+        <a href="${o.stripe}"
+           style="color:#4da6ff; text-decoration:none;">
+          ${o.city}, ${o.country}
+        </a>
+      </div>
 
-      <button onclick="window.location.href='${o.stripe}'"
-      Donate Now
-    </button>
+      <!-- DONATE BUTTON -->
+      <button onclick="window.location.href='${o.stripe}'">
+        Donate Now
+      </button>
 
     </div>
   `).join("");
