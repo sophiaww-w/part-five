@@ -10,7 +10,8 @@
 <div class="nav">
   <div><b>Fundraising Organization</b></div>
   <div>
-    <a href="about.html">About</a>
+    <a href="all.html">View All</a>
+    <a href="index.html">Home</a>
   </div>
 </div>
 
@@ -22,38 +23,43 @@
 const id = new URLSearchParams(window.location.search).get("id");
 const org = orgData.find(o => o.id === id);
 
-const percent = Math.round((org.raised / org.goal) * 100);
+if (!org) {
+  document.getElementById("content").innerHTML =
+    "<h2>Organization not found</h2>";
+} else {
 
-document.getElementById("content").innerHTML = `
-  <div class="card">
+  const percent = Math.round((org.raised / org.goal) * 100);
 
-    <h1>${org.name}</h1>
+  document.getElementById("content").innerHTML = `
+    <div class="card">
 
-   <h3 style="color:#cfe8ff;">
-  ${org.city}, ${org.country}
-</h3>
+      <h1>${org.name}</h1>
 
-    <p><b>✔ Verified by Fundraising Organization</b></p>
+      <h3 style="color:#cfe8ff;">
+        ${org.city}, ${org.country}
+      </h3>
 
-    <p>${org.description}</p>
+      <p>${org.description}</p>
 
-    <h3>Goal: $${org.goal}</h3>
-    <h3>Raised: $${org.raised}</h3>
+      <h3>Goal: $${org.goal}</h3>
+      <h3>Raised: $${org.raised}</h3>
 
-    <div class="bar">
-      <div class="fill" style="width:${percent}%"></div>
+      <div class="bar">
+        <div class="fill" style="width:${percent}%"></div>
+      </div>
+
+      <p>${percent}% funded</p>
+
+      <!-- STRIPE DONATION -->
+      <button onclick="window.location.href='${org.stripe}'">
+        Donate Now
+      </button>
+
+      <button onclick="history.back()">Back</button>
+
     </div>
-
-    <p>${percent}% funded</p>
-
-    <button onclick="window.location.href='${org.stripe}'">
-      Donate Now
-    </button>
-
-    <button onclick="history.back()">Back</button>
-
-  </div>
-`;
+  `;
+}
 </script>
 
 </body>
