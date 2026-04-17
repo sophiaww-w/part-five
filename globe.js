@@ -1,6 +1,10 @@
-const globe = Globe()(document.getElementById('globe'))
+const globe = Globe()
+  (document.getElementById('globe'))
   .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-  .backgroundColor('#060a12');
+  .backgroundColor('#060a12')
+  .htmlElementVisibilityModifier((el, isVisible) => {
+    el.style.pointerEvents = isVisible ? 'auto' : 'none';
+  });
 
 globe
   .htmlElementsData(orgData)
