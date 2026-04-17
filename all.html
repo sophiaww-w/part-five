@@ -1,24 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>All Organizations</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<div class="nav">
-  <div><b>Fundraising Organization</b></div>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-  </div>
-</div>
-
-<h1 style="text-align:center;">All Locations</h1>
-
-<div id="list"></div>
-
 <script src="data.js"></script>
 
 <script>
@@ -28,15 +7,9 @@ document.getElementById("list").innerHTML =
 
       <div>
         <h3>${o.name}</h3>
-
-        <!-- STRIPE LINK -->
-        <a href="${o.stripe}"
-           style="color:#4da6ff; text-decoration:none;">
-          ${o.city}, ${o.country}
-        </a>
+        <p>${o.city}, ${o.country}</p>
       </div>
 
-      <!-- DONATE BUTTON -->
       <button onclick="window.location.href='${o.stripe}'">
         Donate Now
       </button>
@@ -44,6 +17,3 @@ document.getElementById("list").innerHTML =
     </div>
   `).join("");
 </script>
-
-</body>
-</html>
