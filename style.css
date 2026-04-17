@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #05070d;
+  color: white;
+}
+
+/* NAVBAR */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background: rgba(0,0,0,0.6);
+  position: sticky;
+  top: 0;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+/* GLOBE */
+#globe {
+  width: 100%;
+  height: 75vh;
+}
+
+/* BUTTON */
+button {
+  background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+  font-weight: 600;
+}
+
+/* CARD */
+.card {
+  background: #0d1117;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 14px;
+}
+
+/* PROGRESS BAR */
+.bar {
+  width: 100%;
+  background: #222;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.fill {
+  height: 16px;
+  background: linear-gradient(90deg, #ff4d4d, #ff9966);
+  border-radius: 10px;
+}
