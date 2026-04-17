@@ -8,12 +8,53 @@ const globe = Globe()(document.getElementById('globe'))
 globe
   .pointsData(orgData)
   .pointLat(d => d.lat)
-  .pointLng(d => d.lng)
-  .pointColor(() => "rgba(255, 60, 60, 0.9)")
-  .pointAltitude(0.02);
+  .pointLng(d => d.lng);
 
 // ─────────────────────────────
-// PULSE + GLOW EFFECT
+// HOVER TOOLTIP (ONLY ONE SYSTEM)
+// ─────────────────────────────
+
+const tooltip = document.createElement("div");
+tooltip.style.position = "absolute";
+tooltip.style.background = "white";
+tooltip.style.color = "black";
+tooltip.style.padding = "8px 10px";
+tooltip.style.borderRadius = "8px";
+tooltip.style.fontSize = "12px";
+tooltip.style.pointerEvents = "none";
+tooltip.style.display = "none";
+document.body.appendChild(tooltip);
+
+globe.onPointHover(d => {
+  if (!d) {
+    tooltip.style.display = "none";
+    return;
+  }
+
+  const percent = Math.round((d.raised / d.goal) * 100);
+
+  tooltip.innerHTML = `
+    <b>${d.name}</b><br>
+    ${d.city}, ${d.country}<br>
+    $${d.raised} / $${d.goal}
+  `;
+
+  tooltip.style.display = "block";
+});
+
+// move tooltip
+document.addEventListener("mousemove", (e) => {
+  tooltip.style.left = (e.clientX + 10) + "px";
+  tooltip.style.top = (e.clientY + 10) + "px";
+});
+
+// CLICK → org page
+globe.onPointClick(d => {
+  window.location.href = `org.html?id=${d.id}`;
+});
+
+// ─────────────────────────────
+// PULSING + GLOWING DOTS
 // ─────────────────────────────
 
 let t = 0;
@@ -22,14 +63,10 @@ function animate() {
   t += 0.03;
 
   globe
-    .pointRadius(d => {
-      // pulsing size
-      return 0.6 + Math.sin(t) * 0.15;
-    })
-    .pointColor(d => {
-      // glowing red (pulsing brightness)
-      const pulse = 0.5 + Math.sin(t) * 0.5;
-      return `rgba(255, 60, 60, ${0.5 + pulse * 0.5})`;
+    .pointRadius(d => 0.6 + Math.sin(t) * 0.15)
+    .pointColor(() => {
+      const glow = 0.6 + Math.sin(t) * 0.4;
+      return `rgba(255, 60, 60, ${glow})`;
     });
 
   requestAnimationFrame(animate);
