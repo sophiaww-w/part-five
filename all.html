@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Organizations</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="nav">
+  <div><b>Fundraising Organization</b></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+  </div>
+</div>
+
+<h1 style="text-align:center;">All Organizations</h1>
+
+<div id="list"></div>
+
+<script src="data.js"></script>
+
+<script>
+document.getElementById("list").innerHTML =
+  orgData.map(o => {
+
+    const percent = Math.round((o.raised / o.goal) * 100);
+
+    return `
+      <div class="card">
+
+        <h2>${o.name}</h2>
+
+        <p>${o.city}, ${o.country}</p>
+
+        <p>${o.description}</p>
+
+        <p><b>${percent}% funded</b></p>
+
+        <div class="bar">
+          <div class="fill" style="width:${percent}%"></div>
+        </div>
+
+        <button onclick="location.href='org.html?id=${o.id}'">
+          View Organization
+        </button>
+
+      </div>
+    `;
+  }).join("");
+</script>
+
+</body>
+</html>
